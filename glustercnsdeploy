@@ -1,0 +1,36 @@
+#OPENSHIFT INSTALLATION SINGLE
+[OSEv3:children]
+masters
+etcd
+nodes
+glusterfs
+
+[OSEv3:vars]
+ansible_ssh_user=root
+openshift_release=v3.9
+openshift_deployment_type=openshift-enterprise
+openshift_storage_glusterfs_namespace=cns
+openshift_storage_glusterfs_is_native=true
+openshift_storage_glusterfs_block_deploy=false 
+openshift_storage_glusterfs_heketi_is_native=true
+openshift_storage_glusterfs_wipe=true 
+
+
+[glusterfs]
+master.192.168.124.101.nip.io glusterfs_ip=192.168.124.101 glusterfs_devices='[ "/dev/vdb" ]' 
+node.192.168.124.102.nip.io glusterfs_ip=192.168.124.102 glusterfs_devices='[ "/dev/vdb" ]'
+compute.192.168.124.110.nip.io glusterfs_ip=192.168.124.110 glusterfs_devices='[ "/dev/vdb" ]'
+
+
+[masters]
+master.192.168.124.101.nip.io openshift_node_labels="{'region': 'primary', 'zone':'default'}" openshift_schedulable=true
+
+[nodes]
+master.192.168.124.101.nip.io openshift_node_labels="{'region': 'primary', 'zone':'default'}" openshift_schedulable=true
+compute.192.168.124.110.nip.io  openshift_node_labels="{'region': 'primary', 'zone':'default'}" openshift_schedulable=true
+node.192.168.124.102.nip.io openshift_node_labels="{'region': 'infra', 'zone':'east'}" openshift_schedulable=true
+
+[etcd]
+master.192.168.124.101.nip.io 
+
+

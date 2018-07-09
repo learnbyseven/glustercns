@@ -1,0 +1,11 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: slow
+provisioner: kubernetes.io/glusterfs
+parameters:
+  resturl: http://heketi-storage-cns.cloudapps.master.192.168.124.101.nip.io
+  restuser: "admin"
+  secretNamespace: "default"
+  secretName: "heketi-secret"
+reclaimPolicy: Delete
