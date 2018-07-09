@@ -6,10 +6,10 @@
 ## Enabling Repos
 - subscription-manager repos --enable={rh-gluster-3-client-for-rhel-7-server-rpms,rh-gluster-3-for-rhel-7-server-rpms,rh-gluster-3-nfs-for-rhel-7-server-rpms,rh-gluster-3-samba-for-rhel-7-server-rpms}
 ## Install Package:
-- yum install glusterfs-fuse && yum updateglusterfs-fuse
+- yum install glusterfs-fuse && yum update glusterfs-fuse
 
 ## Gluster Template glustercns.yaml 
-ansible-playbook -i /root/ocpinstall/gluster /usr/share/ansible/openshift-ansible/playbooks/openshift-glusterfs/config.yml
+ansible-playbook -i /root/ocpinstall/glustercnsdeploy /usr/share/ansible/openshift-ansible/playbooks/openshift-glusterfs/config.yml
 
 ## NOTE
 Heketi secret is environment variable HEKETI_ADMIN_KEY="hfWqdIxUIaz8kOXMvd4XCFZjZywmwny7aqkKcq42qf0=" change into base 64 
