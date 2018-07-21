@@ -247,6 +247,58 @@ GlusterFS Install          : Complete (0:05:48)
 
 
 
+[root@mn1 ~]# oc project crs
+Already on project "crs" on server "https://lb.giriaddns.net:8443".
+[root@mn1 ~]# oc get pods
+NAME                                          READY     STATUS    RESTARTS   AGE
+glusterblock-storage-provisioner-dc-1-sc25k   1/1       Running   0          42m
+heketi-storage-1-gdj8g                        1/1       Running   0          44m
+[root@mn1 ~]# oc get ep
+NAME                          ENDPOINTS                                               AGE
+heketi-db-storage-endpoints   192.168.124.200:1,192.168.124.201:1,192.168.124.202:1   45m
+heketi-storage                10.0.0.28:8080                                          45m
+[root@mn1 ~]# oc get svc
+NAME                          TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
+heketi-db-storage-endpoints   ClusterIP   172.30.253.21    <none>        1/TCP      45m
+heketi-storage                ClusterIP   172.30.152.107   <none>        8080/TCP   45m
+[root@mn1 ~]# oc get routes
+NAME             HOST/PORT                                    PATH      SERVICES         PORT      TERMINATION   WILDCARD
+heketi-storage   heketi-storage-crs.cloudapps.giriaddns.net             heketi-storage   <all>                   None
+[root@mn1 ~]# oc get dc
+NAME                                  REVISION   DESIRED   CURRENT   TRIGGERED BY
+glusterblock-storage-provisioner-dc   1          1         1         config
+heketi-storage                        1          1         1         config
+[root@mn1 ~]# oc get rc
+NAME                                    DESIRED   CURRENT   READY     AGE
+glusterblock-storage-provisioner-dc-1   1         1         1         42m
+heketi-storage-1                        1         1         1         45m
+[root@mn1 ~]# oc get sa
+NAME                               SECRETS   AGE
+builder                            2         2d
+default                            2         2d
+deployer                           2         2d
+glusterblock-storage-provisioner   2         43m
+heketi-storage-service-account     2         47m
+[root@mn1 ~]# oc get secret
+NAME                                               TYPE                                  DATA      AGE
+builder-dockercfg-jjhp5                            kubernetes.io/dockercfg               1         2d
+builder-token-5wrbj                                kubernetes.io/service-account-token   4         2d
+builder-token-frmr6                                kubernetes.io/service-account-token   4         2d
+default-dockercfg-qxpjw                            kubernetes.io/dockercfg               1         2d
+default-token-8d2nm                                kubernetes.io/service-account-token   4         2d
+default-token-hmr6p                                kubernetes.io/service-account-token   4         2d
+deployer-dockercfg-86vpl                           kubernetes.io/dockercfg               1         2d
+deployer-token-sbbgl                               kubernetes.io/service-account-token   4         2d
+deployer-token-xslgx                               kubernetes.io/service-account-token   4         2d
+glusterblock-storage-provisioner-dockercfg-2q52l   kubernetes.io/dockercfg               1         43m
+glusterblock-storage-provisioner-token-ckhlb       kubernetes.io/service-account-token   4         43m
+glusterblock-storage-provisioner-token-vrcwn       kubernetes.io/service-account-token   4         43m
+heketi-storage-admin-secret                        kubernetes.io/glusterfs               1         43m
+heketi-storage-admin-secret-block                  gluster.org/glusterblock              1         42m
+heketi-storage-config-secret                       Opaque                                2         47m
+heketi-storage-service-account-dockercfg-qxjdz     kubernetes.io/dockercfg               1         47m
+heketi-storage-service-account-token-n6v6t         kubernetes.io/service-account-token   4         47m
+heketi-storage-service-account-token-s2ftt         kubernetes.io/service-account-token   4         47m
 
 
 
